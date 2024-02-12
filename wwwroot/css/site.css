@@ -1,22 +1,233 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-  margin-bottom: 60px;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+main {
+    min-height: 89vh;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.logo {
+    color: white;
+    font-size: 1.5em;
+}
+
+.logo:hover,
+a:hover {
+    color: #45a049;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    padding: 1em;
+    transition: 0.3s;
+    overflow-y: auto;
+}
+
+.navbar-nav {
+    display: flex;
+    flex-direction: row;
+}
+
+nav a {
+    text-decoration: none;
+    color: #d0d0d0;
+    display: block;
+    margin: 1em;
+    margin-right: 1em;
+}
+
+nav a:hover,
+.close-button:hover {
+    color: #45a049;
+}
+
+.menu-icon {
+    display: none;
+    cursor: pointer;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em;
+}
+
+#mail {
+    color: white;
+    text-decoration: none;
+}
+
+#mail:hover {
+    color: #45a049;
+}
+
+.partial {
+    border: 1px solid #45a049;
+    width: 80%;
+    margin-inline: auto;
+    max-width: 400px;
+    margin-top: 3em;
+}
+
+form {
+    display: block;
+    width: 80%;
+    max-width: 300px;
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    margin-bottom: 8px;
+}
+
+input[type=text],
+input[type=number],
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: row;
+}
+
+.btn {
+    background-color: #4caf50;
+    color: white;
+    width: 100%;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1em;
+}
+
+.center {
+    display: block;
+    justify-content: center;
+    text-align: center;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+footer p {
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-nav a.active {
+    color: #4caf50;
+}
+
+span {
+    color: red;
+    margin-bottom: 1em;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+    nav {
+        flex-direction: row;
+        position: fixed;
+        top: 60px;
+        left: -200px;
+        width: 100%;
+        height: auto;
+    }
+    nav a {
+        display: inline-block;
+        width: 100%;
+        box-sizing: border-box;
+        color: #333;
+        margin: 0;
+        padding: 1em;
+    }
+    .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        background-color: #f2f2f2;
+    }
+    .menu-icon {
+        display: block;
+        font-size: 2em;
+    }
+    #mobile-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 200px;
+        height: 100vh;
+        width: 100%;
+        height: 100vh;
+        background-color: #f2f2f2;
+        z-index: 1;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        padding: 0;
+        font-size: 1.2em;
+    }
+    #mobile-menu.closed {
+        left: -100%;
+    }
+    .close-button {
+        width: 80vw;
+        border: none;
+        text-align: center;
+        margin-inline: auto;
+        margin-top: 3em;
+        background-color: #f2f2f2;
+        font-size: 1.5em;
+    }
+    main {
+        padding: 1em;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .close-button {
+        display: none;
+    }
+    .logo {
+        margin-left: 1.5em;
+    }
+    main {
+        width: calc(100vw - 150px);
+        padding-left: 2em;
+        padding-right: 2em;
+        padding-top: 1em;
+    }
 }
