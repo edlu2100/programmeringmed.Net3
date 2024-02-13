@@ -57,7 +57,7 @@ namespace programmeringmed.Net3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Category,AuthorId,ReleaseYear")] BookModel bookModel)
+        public async Task<IActionResult> Create([Bind("Id,Title,Category,AuthorId,ReleaseYear,Quantity")] BookModel bookModel)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace programmeringmed.Net3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Category,AuthorId,ReleaseYear")] BookModel bookModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Category,AuthorId,ReleaseYear,Quantity")] BookModel bookModel)
         {
             if (id != bookModel.Id)
             {

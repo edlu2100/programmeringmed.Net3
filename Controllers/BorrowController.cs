@@ -18,24 +18,25 @@ namespace programmeringmed.Net3.Controllers
         {
             _context = context;
         }
-        //Hämtar titel på boken som lånas
-        private async Task<string?> GetBookTitle(int bookId)
+        public async Task<string?> GetBookTitle(int bookId)
         {
             var book = await _context.Books.FindAsync(bookId);
             return book != null ? book.Title : "Unknown";
         }
-        //Hämtar namn på person som lånat
-        private async Task<string> GetPersonName(int personId)
+
+        public async Task<string> GetPersonName(int personId)
         {
             var person = await _context.Persons.FindAsync(personId);
             return person != null ? $"{person.FirstName} {person.LastName}" : "Unknown";
         }
 
+
+
         // GET: Borrow
         public async Task<IActionResult> Index()
         {
-
-            return View(await _context.Borrows.ToListAsync());
+            var applicationDbContext = _context.Borrows.Include(b => b.Book).Include(b => b.Person);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Borrow/Details/5
@@ -47,6 +48,8 @@ namespace programmeringmed.Net3.Controllers
             }
 
             var borrowModel = await _context.Borrows
+                .Include(b => b.Book)
+                .Include(b => b.Person)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (borrowModel == null)
             {
@@ -77,8 +80,11 @@ namespace programmeringmed.Net3.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["BookId"] = new SelectList(_context.Books, "Id", "Title", borrowModel.BookId);
+            ViewData["PersonId"] = new SelectList(_context.Persons, "Id", "FirstName", borrowModel.PersonId);
             return View(borrowModel);
         }
+
         // GET: Borrow/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -112,7 +118,6 @@ namespace programmeringmed.Net3.Controllers
 
             return View(borrowModel);
         }
-
         // POST: Borrow/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -148,6 +153,7 @@ namespace programmeringmed.Net3.Controllers
             return View(borrowModel);
         }
 
+
         // GET: Borrow/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -156,12 +162,28 @@ namespace programmeringmed.Net3.Controllers
                 return NotFound();
             }
 
-            var borrowModel = await _context.Borrows
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var borrowModel = await _context.Borrows.FindAsync(id);
             if (borrowModel == null)
             {
                 return NotFound();
             }
+
+            // Hämta alla personer och böcker för dropdown-listorna
+            var persons = await _context.Persons.Select(p => new SelectListItem
+            {
+                Value = p.Id.ToString(),
+                Text = $"{p.FirstName} {p.LastName}"
+            }).ToListAsync();
+
+            var books = await _context.Books.Select(b => new SelectListItem
+            {
+                Value = b.Id.ToString(),
+                Text = b.Title
+            }).ToListAsync();
+
+            // Skapa SelectList för personer och böcker
+            ViewBag.Persons = new SelectList(persons, "Value", "Text", borrowModel.PersonId);
+            ViewBag.Books = new SelectList(books, "Value", "Text", borrowModel.BookId);
 
             return View(borrowModel);
         }
@@ -185,6 +207,5 @@ namespace programmeringmed.Net3.Controllers
         {
             return _context.Borrows.Any(e => e.Id == id);
         }
-
     }
 }

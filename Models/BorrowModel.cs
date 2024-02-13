@@ -9,11 +9,11 @@ namespace programmeringmed.Net3.Models
 
         [Required(ErrorMessage = "Titel är obligatorisk.")]
         public int? BookId { get; set; }
-        public BookModel? Books { get; set; }
+        public BookModel? Book { get; set; }
 
         [Required(ErrorMessage = "Namn på personen är obligatorisk.")]
         public int? PersonId { get; set; }
-        public PersonModel? Persons { get; set; }
+        public PersonModel? Person { get; set; }
 
         [Required(ErrorMessage = "Datum för lånet är obligatorisk.")]
         [Display(Name = "Datum för lån")]

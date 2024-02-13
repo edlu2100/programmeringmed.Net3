@@ -15,6 +15,9 @@ public class BookModel
         [Required(ErrorMessage = "Utgivningsår är obligatorisk.")]
         [Display(Name = "Utgivningsår")]
         public int? ReleaseYear { get; set; } // Utgivningsår
+                [Required(ErrorMessage = "Antal böcker är obligatoriskt.")]
+        [Display(Name = "Antal böcker")]
+        public int Quantity { get; set; }
         public List<BorrowModel>? Borrows { get; set; }
     
 }

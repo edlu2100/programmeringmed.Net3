@@ -54,6 +54,7 @@ namespace programmeringmed.Net3.Migrations
                     Category = table.Column<string>(type: "TEXT", nullable: false),
                     AuthorId = table.Column<int>(type: "INTEGER", nullable: false),
                     ReleaseYear = table.Column<int>(type: "INTEGER", nullable: false),
+                    Quantity = table.Column<int>(type: "INTEGER", nullable: false),
                     PersonModelId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
@@ -79,24 +80,24 @@ namespace programmeringmed.Net3.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     BookId = table.Column<int>(type: "INTEGER", nullable: false),
-                    BooksId = table.Column<int>(type: "INTEGER", nullable: true),
                     PersonId = table.Column<int>(type: "INTEGER", nullable: false),
-                    PersonsId = table.Column<int>(type: "INTEGER", nullable: true),
                     BorrowDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Borrows", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Borrows_Books_BooksId",
-                        column: x => x.BooksId,
+                        name: "FK_Borrows_Books_BookId",
+                        column: x => x.BookId,
                         principalTable: "Books",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Borrows_Persons_PersonsId",
-                        column: x => x.PersonsId,
+                        name: "FK_Borrows_Persons_PersonId",
+                        column: x => x.PersonId,
                         principalTable: "Persons",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -110,14 +111,14 @@ namespace programmeringmed.Net3.Migrations
                 column: "PersonModelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Borrows_BooksId",
+                name: "IX_Borrows_BookId",
                 table: "Borrows",
-                column: "BooksId");
+                column: "BookId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Borrows_PersonsId",
+                name: "IX_Borrows_PersonId",
                 table: "Borrows",
-                column: "PersonsId");
+                column: "PersonId");
         }
 
         /// <inheritdoc />

@@ -53,6 +53,9 @@ namespace programmeringmed.Net3.Migrations
                     b.Property<int?>("PersonModelId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int?>("ReleaseYear")
                         .IsRequired()
                         .HasColumnType("INTEGER");
@@ -80,9 +83,6 @@ namespace programmeringmed.Net3.Migrations
                         .IsRequired()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("BooksId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateTime>("BorrowDate")
                         .HasColumnType("TEXT");
 
@@ -90,14 +90,11 @@ namespace programmeringmed.Net3.Migrations
                         .IsRequired()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("PersonsId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("BooksId");
+                    b.HasIndex("BookId");
 
-                    b.HasIndex("PersonsId");
+                    b.HasIndex("PersonId");
 
                     b.ToTable("Borrows");
                 });
@@ -158,17 +155,21 @@ namespace programmeringmed.Net3.Migrations
 
             modelBuilder.Entity("programmeringmed.Net3.Models.BorrowModel", b =>
                 {
-                    b.HasOne("programmeringmed.Net3.Models.BookModel", "Books")
+                    b.HasOne("programmeringmed.Net3.Models.BookModel", "Book")
                         .WithMany("Borrows")
-                        .HasForeignKey("BooksId");
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("programmeringmed.Net3.Models.PersonModel", "Persons")
+                    b.HasOne("programmeringmed.Net3.Models.PersonModel", "Person")
                         .WithMany("Borrows")
-                        .HasForeignKey("PersonsId");
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Books");
+                    b.Navigation("Book");
 
-                    b.Navigation("Persons");
+                    b.Navigation("Person");
                 });
 
             modelBuilder.Entity("programmeringmed.Net3.Models.AuthorModel", b =>

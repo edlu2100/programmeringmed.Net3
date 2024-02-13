@@ -1,3 +1,4 @@
+@using programmeringmed.Net3.Controllers
 @model IEnumerable<programmeringmed.Net3.Models.BorrowModel>
 
 @{
@@ -30,15 +31,17 @@
             <tr>
                 <td>
                     @{
+                        // Hämta boktitel för det aktuella lånet
                         var bookTitle = await GetBookTitle(item.BookId);
-                        @bookTitle
                     }
+                    @bookTitle
                 </td>
                 <td>
                     @{
+                        // Hämta personens namn för det aktuella lånet
                         var personName = await GetPersonName(item.PersonId);
-                        @personName
                     }
+                    @personName
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.BorrowDate)
