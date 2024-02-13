@@ -4,19 +4,25 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Books</h1>
+<div class="flex">
+    <h1>Books</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+    <a class="CreateNew" asp-action="Create">Create New</a>
 
-<form method="get" asp-controller="Book" asp-action="Index">
-    <p>
-        <input type="search" name="searchString" id="" value="@ViewData["GetBookDetails"]">
-        <input type="submit" value="Search" name="" id="">
-        <a asp-action="index">Get all Books</a>
-    </p>
+</div>
+
+
+
+
+<form method="get" asp-controller="Book" asp-action="Index" class=" search-container">
+
+    <input class="search-input" type="search" name="searchString" id="" value="@ViewData["GetBookDetails"]">
+    <input class="search-button" type="submit" value="Search" name="" id="">
+    <a class="center mt " asp-action="index">Get all Books</a>
+
 </form>
+
+
 <table class="table">
     <thead>
         <tr>
@@ -57,10 +63,10 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Quantity)
                 </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <td class="row">
+                    <a class="edit" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a class="details" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <a class="delete" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }

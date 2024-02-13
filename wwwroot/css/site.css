@@ -79,6 +79,10 @@ footer {
     color: #45a049;
 }
 
+ol li {
+    text-align: left;
+}
+
 .partial {
     border: 1px solid #45a049;
     width: 80%;
@@ -91,7 +95,7 @@ form {
     display: block;
     width: 80%;
     max-width: 300px;
-    margin: auto;
+    margin-inline: auto;
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -165,6 +169,100 @@ ul {
 
 table {
     max-width: 100%;
+}
+
+.flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.CreateNew {
+    background-color: #45a049;
+    color: white;
+    border: solid 1px #000000;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 50px;
+    width: 100px;
+}
+
+.CreateNew:hover {
+    color: black;
+}
+
+.edit,
+.delete,
+.details {
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 50px;
+    width: 60px;
+    margin-right: 0.2em;
+}
+
+.edit {
+    background-color: rgb(39, 89, 254);
+}
+
+.delete {
+    background-color: red;
+}
+
+.details {
+    background-color: #45a049;
+}
+
+.edit:hover,
+.delete:hover,
+.details:hover {
+    color: #000000;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.mt {
+    margin-top: 1em;
+}
+
+.search-container {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    width: 100%;
+    background-color: none;
+}
+
+.search-input {
+    padding: 7px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    width: 60%;
+}
+
+.search-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 7px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
 }
 
 @media screen and (max-width: 768px) {
