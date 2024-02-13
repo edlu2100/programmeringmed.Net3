@@ -18,18 +18,6 @@ namespace programmeringmed.Net3.Controllers
         {
             _context = context;
         }
-        public async Task<string?> GetBookTitle(int bookId)
-        {
-            var book = await _context.Books.FindAsync(bookId);
-            return book != null ? book.Title : "Unknown";
-        }
-
-        public async Task<string> GetPersonName(int personId)
-        {
-            var person = await _context.Persons.FindAsync(personId);
-            return person != null ? $"{person.FirstName} {person.LastName}" : "Unknown";
-        }
-
 
 
         // GET: Borrow
@@ -76,10 +64,30 @@ namespace programmeringmed.Net3.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Hämta den aktuella boken från databasen
+                var book = await _context.Books.FindAsync(borrowModel.BookId);
+
+                // Kontrollera om boken finns
+                if (book != null)
+                {
+                    // Minska Quantity med 1
+                    book.Quantity -= 1;
+
+                    // Spara ändringarna till databasen
+                    _context.Update(book);
+                }
+
+                // Lägg till det nya lånet i databasen
                 _context.Add(borrowModel);
+
+                // Spara ändringarna i databasen
                 await _context.SaveChangesAsync();
+
+                // Omdirigera till Index-åtgärden
                 return RedirectToAction(nameof(Index));
             }
+
+            // Om modellens tillstånd inte är giltigt, returnera vyn med felmeddelanden
             ViewData["BookId"] = new SelectList(_context.Books, "Id", "Title", borrowModel.BookId);
             ViewData["PersonId"] = new SelectList(_context.Persons, "Id", "FirstName", borrowModel.PersonId);
             return View(borrowModel);

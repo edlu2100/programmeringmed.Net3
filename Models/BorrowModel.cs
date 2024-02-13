@@ -16,7 +16,6 @@ namespace programmeringmed.Net3.Models
         public PersonModel? Person { get; set; }
 
         [Required(ErrorMessage = "Datum för lånet är obligatorisk.")]
-        [Display(Name = "Datum för lån")]
         public DateTime BorrowDate { get; set; }
 
         public BorrowModel()

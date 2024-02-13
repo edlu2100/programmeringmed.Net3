@@ -4,29 +4,27 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Borrow Book</h1>
 
-<h4>BorrowModel</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="BookId" class="control-label"></label>
+                <label asp-for="BookId" class="control-label">Title</label>
                 <select asp-for="BookId" class="form-control" asp-items="ViewBag.BookId">
                     @foreach (var book in ViewBag.Books)
                     {
-                        <option>@book.Title</option>
+                        <option value="@book.Id">@book.Title</option>
                     }
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="PersonId" class="control-label"></label>
+                <label asp-for="PersonId" class="control-label">Your Name</label>
                 <select asp-for="PersonId" class="form-control" asp-items="ViewBag.PersonId">
                     @foreach (var person in ViewBag.Persons)
                     {
-                        <option>@person.FirstName @person.LastName</option>
+                        <option value="@person.Id">@person.FirstName @person.LastName</option>
                     }
                 </select>
 

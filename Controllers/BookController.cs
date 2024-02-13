@@ -25,6 +25,20 @@ namespace programmeringmed.Net3.Controllers
             var applicationDbContext = _context.Books.Include(b => b.Author);
             return View(await applicationDbContext.ToListAsync());
         }
+        [HttpGet]
+        public async Task<IActionResult> Index(string searchString)
+        {
+
+            ViewData["GetBookDetails"] = searchString;
+
+            var bookquery= from x in _context.Books select x;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                bookquery = bookquery.Where(x => x.Title.Contains(searchString));
+            }
+            return View(await bookquery.AsNoTracking().ToListAsync());
+
+        }
 
         // GET: Book/Details/5
         public async Task<IActionResult> Details(int? id)

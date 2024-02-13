@@ -5,6 +5,7 @@ body {
 
 main {
     min-height: 89vh;
+    margin-inline: auto;
 }
 
 a {
@@ -97,6 +98,10 @@ form {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.back {
+    margin-top: 3em;
+}
+
 label {
     margin-bottom: 8px;
 }
@@ -158,6 +163,10 @@ ul {
     margin: 0;
 }
 
+table {
+    max-width: 100%;
+}
+
 @media screen and (max-width: 768px) {
     nav {
         flex-direction: row;
@@ -214,6 +223,9 @@ ul {
     }
     main {
         padding: 1em;
+    }
+    form {
+        margin-inline: auto;
     }
 }
 

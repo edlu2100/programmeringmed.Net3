@@ -4,27 +4,25 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Edit Loan</h1>
 
-<h4>BorrowModel</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="BookId" class="control-label"></label>
+                <label asp-for="BookId" class="control-label">Title</label>
                 <select asp-for="BookId" class="form-control" asp-items="ViewBag.Books"></select>
                 <span asp-validation-for="BookId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PersonId" class="control-label"></label>
+                <label asp-for="PersonId" class="control-label">Your Name</label>
                 <select asp-for="PersonId" class="form-control" asp-items="ViewBag.Persons"></select>
                 <span asp-validation-for="PersonId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="BorrowDate" class="control-label"></label>
+                <label asp-for="BorrowDate" class="control-label">Date</label>
                 <input asp-for="BorrowDate" class="form-control" />
                 <span asp-validation-for="BorrowDate" class="text-danger"></span>
             </div>
@@ -35,8 +33,8 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="back">
+    <a  asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
