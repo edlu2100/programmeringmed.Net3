@@ -19,26 +19,27 @@ namespace programmeringmed.Net3.Controllers
             _context = context;
         }
 
-        // GET: Book
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString = null)
         {
-            var applicationDbContext = _context.Books.Include(b => b.Author);
-            return View(await applicationDbContext.ToListAsync());
-        }
-        [HttpGet]
-        public async Task<IActionResult> Index(string searchString)
-        {
-
+            // Set the search string in ViewData
             ViewData["GetBookDetails"] = searchString;
 
-            var bookquery= from x in _context.Books select x;
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                bookquery = bookquery.Where(x => x.Title.Contains(searchString));
-            }
-            return View(await bookquery.AsNoTracking().ToListAsync());
+            // Query all books
+            var bookQuery = _context.Books.AsQueryable();
 
+            // Apply search filter if searchString is not null or empty
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                bookQuery = bookQuery.Where(x => x.Title.Contains(searchString));
+            }
+
+            // Include Author information for each book
+            var books = await bookQuery.Include(b => b.Author).AsNoTracking().ToListAsync();
+
+            // Return the filtered books to the view
+            return View(books);
         }
+
 
         // GET: Book/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -161,6 +161,11 @@ namespace programmeringmed.Net3.Controllers
             return View(borrowModel);
         }
 
+        private bool BorrowModelExists(int id)
+        {
+            throw new NotImplementedException();
+        }
+
 
         // GET: Borrow/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -169,8 +174,11 @@ namespace programmeringmed.Net3.Controllers
             {
                 return NotFound();
             }
-
-            var borrowModel = await _context.Borrows.FindAsync(id);
+            var borrowModel = await _context.Borrows
+                .Include(b => b.Book)
+                .Include(b => b.Person)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            var borrowModels = await _context.Borrows.FindAsync(id);
             if (borrowModel == null)
             {
                 return NotFound();
@@ -193,7 +201,7 @@ namespace programmeringmed.Net3.Controllers
             ViewBag.Persons = new SelectList(persons, "Value", "Text", borrowModel.PersonId);
             ViewBag.Books = new SelectList(books, "Value", "Text", borrowModel.BookId);
 
-            return View(borrowModel);
+            return View(borrowModels);
         }
 
         // POST: Borrow/Delete/5
@@ -204,16 +212,21 @@ namespace programmeringmed.Net3.Controllers
             var borrowModel = await _context.Borrows.FindAsync(id);
             if (borrowModel != null)
             {
+                // Retrieve the associated book
+                var book = await _context.Books.FindAsync(borrowModel.BookId);
+                if (book != null)
+                {
+                    // Increment the quantity by 1
+                    book.Quantity += 1;
+                    _context.Update(book);
+                }
+
+                // Remove the borrow
                 _context.Borrows.Remove(borrowModel);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool BorrowModelExists(int id)
-        {
-            return _context.Borrows.Any(e => e.Id == id);
         }
     }
 }
